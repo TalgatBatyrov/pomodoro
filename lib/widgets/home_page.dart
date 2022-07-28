@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,9 +13,48 @@ class HomePage extends StatelessWidget {
         color: Colors.red,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [SizedBox(height: 70), PomodoroTitle()],
+          children: const [
+            SizedBox(height: 70),
+            PomodoroTitle(),
+            SizedBox(height: 40),
+            PomodoroTimer()
+          ],
         ),
       ),
+    );
+  }
+}
+
+class PomodoroTimer extends StatelessWidget {
+  const PomodoroTimer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        AnimatedDefaultTextStyle(
+          style: TextStyle(
+            height: .9,
+            fontSize: 230,
+            color: Colors.black,
+            fontWeight: FontWeight.w900,
+          ),
+          duration: Duration(milliseconds: 200),
+          child: Text('25'),
+        ),
+        AnimatedDefaultTextStyle(
+          style: TextStyle(
+            height: .9,
+            fontSize: 230,
+            color: Colors.black,
+            fontWeight: FontWeight.w900,
+          ),
+          duration: Duration(milliseconds: 200),
+          child: Text('00'),
+        ),
+      ],
     );
   }
 }
