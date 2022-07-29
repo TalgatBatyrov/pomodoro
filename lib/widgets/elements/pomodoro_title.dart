@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../cubits/theme_cubit.dart';
 import '../../cubits/timer_state_cubit.dart';
 
 class PomodoroTitle extends StatelessWidget {
@@ -11,21 +13,33 @@ class PomodoroTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeCubit = context.watch<ThemeCubit>();
     return Container(
-      width: 180,
+      width: 200,
       height: 60,
       decoration: BoxDecoration(
-          border: const Border.fromBorderSide(BorderSide(width: 2)),
-          color: state.colors,
+          border: Border.fromBorderSide(
+            BorderSide(
+              width: 2,
+              color: themeCubit.isLight ? Colors.black : Colors.white,
+            ),
+          ),
+          color: state.settingsAndNextPageColorsLight,
           borderRadius: BorderRadius.circular(26)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image(image: AssetImage(state.assetName)),
+          Image(
+            image: AssetImage(state.assetName),
+            color:
+                themeCubit.isLight ? state.timerColorLightTheme : Colors.white,
+          ),
           Text(
             state.title,
-            style: const TextStyle(
-              color: Colors.black,
+            style: TextStyle(
+              color: themeCubit.isLight
+                  ? state.timerColorLightTheme
+                  : Colors.white,
               fontSize: 24,
               fontWeight: FontWeight.w500,
             ),

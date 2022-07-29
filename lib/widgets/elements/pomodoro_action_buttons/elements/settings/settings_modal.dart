@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
 import 'package:pomodoro/cubits/theme_cubit.dart';
 import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/elements/settings/settings_item.dart';
 import '../../../../../cubits/timer_state_cubit.dart';
@@ -14,11 +15,15 @@ class SettingsModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeCubit = context.read<ThemeCubit>();
+    final themeCubit = context.watch<ThemeCubit>();
+    final autoResumeTimerCubit = context.watch<AutoResumeTimerCubit>();
+
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
-        color: state.backgroundColor,
+        color: themeCubit.isLight
+            ? state.backgroundColorLight
+            : state.backgroundColorDark,
         boxShadow: [
           BoxShadow(
               color: Colors.black.withOpacity(0.1),
@@ -35,13 +40,18 @@ class SettingsModal extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SettingsItem(
-                title: 'Settings', setting: Icon(Icons.settings)),
+            SettingsItem(
+                title: 'Settings',
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+                setting: GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(Icons.exit_to_app))),
             SettingsItem(
               title: 'Enable dark mode',
               setting: Switch(
-                value: themeCubit.state == ThemeData.dark(),
-                onChanged: (value) => themeCubit.toggleTheme(),
+                value: !themeCubit.isLight,
+                onChanged: (_) => themeCubit.toggleTheme(),
               ),
             ),
             SettingsItem(
@@ -62,7 +72,10 @@ class SettingsModal extends StatelessWidget {
             ),
             SettingsItem(
               title: 'Auto resume timer',
-              setting: Switch(value: false, onChanged: (value) => print(value)),
+              setting: Switch(
+                value: autoResumeTimerCubit.state == AutoResumeState.enable,
+                onChanged: (_) => autoResumeTimerCubit.toggleAutoResume(),
+              ),
             ),
             SettingsItem(
               title: 'Sound',

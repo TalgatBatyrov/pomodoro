@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../cubits/theme_cubit.dart';
 import '../../../../cubits/timer_play_button_cubit.dart';
 import '../../../../cubits/timer_state_cubit.dart';
 
@@ -14,6 +15,7 @@ class Toggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timerPlayButtonCubit = context.read<TimerPlayButtonCubit>();
+    final themeCubit = context.watch<ThemeCubit>();
     return GestureDetector(
       onTap: timerPlayButtonCubit.toggle,
       child: Container(
@@ -24,18 +26,22 @@ class Toggle extends StatelessWidget {
           color: state.toggleButtonColor,
         ),
         child: BlocBuilder<TimerPlayButtonCubit, TimerPlayButtonState>(
-          builder: (context, state) {
-            if (state == TimerPlayButtonState.pause) {
-              return const Icon(
+          builder: (context, playButtonState) {
+            if (playButtonState == TimerPlayButtonState.pause) {
+              return Icon(
                 Icons.play_arrow,
                 size: 40,
-                color: Color.fromARGB(255, 47, 15, 15),
+                color: themeCubit.isLight
+                    ? state.timerColorLightTheme
+                    : Colors.white,
               );
             }
-            return const Icon(
+            return Icon(
               Icons.pause,
               size: 40,
-              color: Color.fromARGB(255, 47, 15, 15),
+              color: themeCubit.isLight
+                  ? state.timerColorLightTheme
+                  : Colors.white,
             );
           },
         ),

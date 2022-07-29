@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../cubits/theme_cubit.dart';
 import '../../../../cubits/timer_state_cubit.dart';
 
 class NextPage extends StatelessWidget {
@@ -13,6 +14,7 @@ class NextPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nextPage = context.read<TimerStateCubit>().nextPage;
+    final themeCubit = context.watch<ThemeCubit>();
     return GestureDetector(
       onTap: nextPage,
       child: Container(
@@ -20,12 +22,12 @@ class NextPage extends StatelessWidget {
         height: 80,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: state.colors,
+          color: state.settingsAndNextPageColorsLight,
         ),
-        child: const Icon(
+        child: Icon(
           Icons.skip_next,
           size: 40,
-          color: Color.fromARGB(255, 47, 15, 15),
+          color: themeCubit.isLight ? state.timerColorLightTheme : Colors.white,
         ),
       ),
     );

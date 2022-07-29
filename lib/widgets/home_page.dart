@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro/cubits/theme_cubit.dart';
 import 'package:pomodoro/cubits/timer_state_cubit.dart';
 
 import 'elements/pomodoro_action_buttons/pomodoro_action_buttons.dart';
@@ -16,11 +17,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final themeCubit = context.watch<ThemeCubit>();
     return BlocBuilder<TimerStateCubit, TimerState>(
       builder: (context, state) {
         return Scaffold(
           body: Container(
-            color: state.backgroundColor,
+            color: themeCubit.isLight
+                ? state.backgroundColorLight
+                : state.backgroundColorDark,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

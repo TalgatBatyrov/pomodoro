@@ -21,7 +21,7 @@ class TimerStateCubit extends Cubit<TimerState> {
 }
 
 extension TimerStateEx on TimerState {
-  Color? get backgroundColor {
+  Color? get backgroundColorLight {
     switch (this) {
       case TimerState.focus:
         return Colors.red[50];
@@ -32,7 +32,18 @@ extension TimerStateEx on TimerState {
     }
   }
 
-  Color? get colors {
+  Color? get backgroundColorDark {
+    switch (this) {
+      case TimerState.focus:
+        return const Color.fromARGB(255, 13, 4, 4);
+      case TimerState.longBreak:
+        return const Color.fromARGB(255, 4, 13, 6);
+      case TimerState.shortBreak:
+        return const Color.fromARGB(255, 4, 9, 13);
+    }
+  }
+
+  Color? get settingsAndNextPageColorsLight {
     switch (this) {
       case TimerState.focus:
         return const Color.fromRGBO(255, 76, 76, 0.15);
@@ -42,6 +53,16 @@ extension TimerStateEx on TimerState {
         return const Color.fromRGBO(77, 218, 110, 0.15);
     }
   }
+  // Color? get settingsAndNextPageColorsLight {
+  //   switch (this) {
+  //     case TimerState.focus:
+  //       return const Color.fromRGBO(255, 76, 76, 0.15);
+  //     case TimerState.longBreak:
+  //       return const Color.fromRGBO(76, 172, 255, 0.15);
+  //     case TimerState.shortBreak:
+  //       return const Color.fromRGBO(77, 218, 110, 0.15);
+  //   }
+  // }
 
   String get assetName {
     switch (this) {
@@ -65,7 +86,7 @@ extension TimerStateEx on TimerState {
     }
   }
 
-  Color get timerColor {
+  Color get timerColorLightTheme {
     switch (this) {
       case TimerState.focus:
         return const Color.fromARGB(255, 47, 15, 15);
@@ -74,6 +95,10 @@ extension TimerStateEx on TimerState {
       case TimerState.shortBreak:
         return const Color.fromARGB(255, 14, 41, 15);
     }
+  }
+
+  Color get timerColorDarkTheme {
+    return Colors.white;
   }
 
   Color get toggleButtonColor {
