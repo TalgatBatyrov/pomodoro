@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/settings/settings_item.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro/cubits/theme_cubit.dart';
+import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/elements/settings/settings_item.dart';
 import '../../../../../cubits/timer_state_cubit.dart';
 
 class SettingsModal extends StatelessWidget {
@@ -12,6 +14,7 @@ class SettingsModal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeCubit = context.read<ThemeCubit>();
     return Container(
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
@@ -36,7 +39,10 @@ class SettingsModal extends StatelessWidget {
                 title: 'Settings', setting: Icon(Icons.settings)),
             SettingsItem(
               title: 'Enable dark mode',
-              setting: Switch(value: false, onChanged: (value) => print(value)),
+              setting: Switch(
+                value: themeCubit.state == ThemeData.dark(),
+                onChanged: (value) => themeCubit.toggleTheme(),
+              ),
             ),
             SettingsItem(
               title: 'Pomodoro length',

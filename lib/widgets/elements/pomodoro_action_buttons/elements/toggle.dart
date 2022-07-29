@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../cubits/timer_play_button_cubit.dart';
-import '../../../cubits/timer_state_cubit.dart';
+import '../../../../cubits/timer_play_button_cubit.dart';
+import '../../../../cubits/timer_state_cubit.dart';
 
 class Toggle extends StatelessWidget {
   const Toggle({

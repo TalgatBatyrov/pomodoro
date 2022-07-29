@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/elements/settings/settings.dart';
-import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/toggle.dart';
+import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/elements/toggle.dart';
 import '../../../cubits/timer_state_cubit.dart';
-import 'next_page.dart';
+import 'elements/next_page.dart';
 
 class PomodoroActionButtons extends StatelessWidget {
   final TimerState state;
