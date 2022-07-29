@@ -15,6 +15,7 @@ class App extends StatelessWidget {
           BlocProvider(create: (_) => TimerPlayButtonCubit()),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Pomodoro',
           theme: ThemeData(
             primarySwatch: Colors.blue,

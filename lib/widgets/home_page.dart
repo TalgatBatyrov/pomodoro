@@ -19,9 +19,6 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<TimerStateCubit, TimerState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            title: const Text('Pomodoro'),
-          ),
           body: Container(
             color: state.backgroundColor,
             child: Column(
