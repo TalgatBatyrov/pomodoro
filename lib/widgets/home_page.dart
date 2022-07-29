@@ -17,10 +17,71 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 70),
             PomodoroTitle(),
             SizedBox(height: 40),
-            PomodoroTimer()
+            PomodoroTimer(),
+            SizedBox(height: 20),
+            PomodoroActionButtons(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class PomodoroActionButtons extends StatelessWidget {
+  const PomodoroActionButtons({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.blue,
+          ),
+          child: const Icon(
+            Icons.settings,
+            size: 40,
+            color: Color.fromARGB(255, 47, 15, 15),
+          ),
+        ),
+        const SizedBox(width: 10),
+        GestureDetector(
+          onTap: () => {},
+          child: Container(
+            width: 130,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(32),
+              color: Colors.blueAccent,
+            ),
+            child: const Icon(
+              Icons.play_arrow,
+              size: 40,
+              color: Color.fromARGB(255, 47, 15, 15),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Container(
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Colors.amber,
+          ),
+          child: const Icon(
+            Icons.skip_next,
+            size: 40,
+            color: Color.fromARGB(255, 47, 15, 15),
+          ),
+        ),
+      ],
     );
   }
 }
