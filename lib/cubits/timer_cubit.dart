@@ -13,7 +13,7 @@ class TimerCubit extends Cubit<Duration> {
   TimerCubit(
     this._timerStateCubit,
     this._timerPlayButtonCubit,
-  ) : super(const Duration(seconds: 25)) {
+  ) : super(const Duration(minutes: 25)) {
     _timerStateSub = _timerStateCubit.stream.listen(_onTimerStateChanged);
     _timerPlayButtonSub =
         _timerPlayButtonCubit.stream.listen(_onTimerPlayButtonStateChanged);
@@ -30,18 +30,18 @@ class TimerCubit extends Cubit<Duration> {
 
   void _onTimerStateChanged(TimerState event) {
     if (event == TimerState.focus) {
-      emit(const Duration(seconds: 25));
-      _timerPlayButtonCubit.setPlay();
+      emit(const Duration(minutes: 25));
+      _timerPlayButtonCubit.setPause();
       return;
     }
     if (event == TimerState.longBreak) {
-      emit(const Duration(seconds: 15));
-      _timerPlayButtonCubit.setPlay();
+      emit(const Duration(minutes: 15));
+      _timerPlayButtonCubit.setPause();
       return;
     }
     if (event == TimerState.shortBreak) {
-      emit(const Duration(seconds: 5));
-      _timerPlayButtonCubit.setPlay();
+      emit(const Duration(minutes: 5));
+      _timerPlayButtonCubit.setPause();
       return;
     }
   }
@@ -54,6 +54,7 @@ class TimerCubit extends Cubit<Duration> {
         final isFinished = current.inSeconds == 0;
         if (isFinished) {
           timer.cancel();
+
           _timerStateCubit.nextPage();
         }
       });
