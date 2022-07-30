@@ -2,7 +2,10 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
+import 'package:pomodoro/cubits/long_break_timer_length_cubit.dart';
 import 'package:pomodoro/cubits/notificaton_cubit.dart';
+import 'package:pomodoro/cubits/focus_timer_length_cubit.dart';
+import 'package:pomodoro/cubits/short_break_timer_length_cubit.dart';
 import 'package:pomodoro/cubits/timer_play_button_cubit.dart';
 import 'package:pomodoro/cubits/timer_state_cubit.dart';
 
@@ -11,25 +14,62 @@ class TimerCubit extends Cubit<Duration> {
   final TimerPlayButtonCubit _timerPlayButtonCubit;
   final AutoResumeTimerCubit _autoResumeTimerCubit;
   final NotificationCubit _notificationCubit;
+  final FocusTimerLengthCubit _focusTimerLengthCubit;
+  final LongBreakTimerLengthCubit _longBreakTimerLengthCubit;
+  final ShortBreakTimerLengthCubit _shortBreakTimerLengthCubit;
 
   late StreamSubscription _timerStateSub;
   late StreamSubscription _timerPlayButtonSub;
+  late StreamSubscription _focusTimerLengthSub;
+  late StreamSubscription _longBreakTimerLengthSub;
+  late StreamSubscription _shortBreakTimerLengthSub;
 
   TimerCubit(
     this._timerStateCubit,
     this._timerPlayButtonCubit,
     this._autoResumeTimerCubit,
     this._notificationCubit,
-  ) : super(const Duration(seconds: 25)) {
+    this._focusTimerLengthCubit,
+    this._longBreakTimerLengthCubit,
+    this._shortBreakTimerLengthCubit,
+  ) : super(const Duration(minutes: 25)) {
     _timerStateSub = _timerStateCubit.stream.listen(_onTimerStateChanged);
     _timerPlayButtonSub =
         _timerPlayButtonCubit.stream.listen(_onTimerPlayButtonStateChanged);
+    _focusTimerLengthSub =
+        _focusTimerLengthCubit.stream.listen(_onFocusTimerLengthChanged);
+    _longBreakTimerLengthSub = _longBreakTimerLengthCubit.stream
+        .listen(_onLongBreakTimerLengthChanged);
+
+    _shortBreakTimerLengthSub = _shortBreakTimerLengthCubit.stream
+        .listen(_onShortBreakTimerLengthChanged);
+  }
+
+  void _onShortBreakTimerLengthChanged(event) {
+    if (_timerStateCubit.state == TimerState.shortBreak) {
+      emit(Duration(minutes: _shortBreakTimerLengthCubit.state));
+    }
+  }
+
+  void _onLongBreakTimerLengthChanged(event) {
+    if (_timerStateCubit.state == TimerState.longBreak) {
+      emit(Duration(minutes: _longBreakTimerLengthCubit.state));
+    }
+  }
+
+  void _onFocusTimerLengthChanged(event) {
+    if (_timerStateCubit.state == TimerState.focus) {
+      emit(Duration(minutes: _focusTimerLengthCubit.state));
+    }
   }
 
   @override
   Future<void> close() {
     _timerStateSub.cancel();
     _timerPlayButtonSub.cancel();
+    _focusTimerLengthSub.cancel();
+    _longBreakTimerLengthSub.cancel();
+    _shortBreakTimerLengthSub.cancel();
     return super.close();
   }
 
@@ -41,7 +81,7 @@ class TimerCubit extends Cubit<Duration> {
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
-      emit(const Duration(seconds: 25));
+      emit(Duration(minutes: _focusTimerLengthCubit.state));
       return;
     }
     if (event == TimerState.longBreak) {
@@ -49,7 +89,7 @@ class TimerCubit extends Cubit<Duration> {
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
-      emit(const Duration(seconds: 15));
+      emit(Duration(minutes: _longBreakTimerLengthCubit.state));
       return;
     }
     if (event == TimerState.shortBreak) {
@@ -57,7 +97,7 @@ class TimerCubit extends Cubit<Duration> {
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
-      emit(const Duration(seconds: 5));
+      emit(Duration(minutes: _shortBreakTimerLengthCubit.state));
       return;
     }
   }
@@ -79,13 +119,13 @@ class TimerCubit extends Cubit<Duration> {
                 player.play(AssetSource(alarmAudioPath));
               }
               if (_timerStateCubit.state == TimerState.focus) {
-                emit(const Duration(seconds: 25));
+                emit(Duration(minutes: _focusTimerLengthCubit.state));
               }
               if (_timerStateCubit.state == TimerState.longBreak) {
-                emit(const Duration(seconds: 15));
+                emit(Duration(minutes: _longBreakTimerLengthCubit.state));
               }
               if (_timerStateCubit.state == TimerState.shortBreak) {
-                emit(const Duration(seconds: 5));
+                emit(Duration(minutes: _shortBreakTimerLengthCubit.state));
               }
 
               _timerPlayButtonCubit.setPause();

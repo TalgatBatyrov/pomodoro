@@ -2,7 +2,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
+import 'package:pomodoro/cubits/long_break_timer_length_cubit.dart';
 import 'package:pomodoro/cubits/notificaton_cubit.dart';
+import 'package:pomodoro/cubits/focus_timer_length_cubit.dart';
+import 'package:pomodoro/cubits/short_break_timer_length_cubit.dart';
 
 import '../../cubits/theme_cubit.dart';
 import '../../cubits/timer_cubit.dart';
@@ -26,6 +29,9 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
     context.read<TimerPlayButtonCubit>(),
     context.read<AutoResumeTimerCubit>(),
     context.read<NotificationCubit>(),
+    context.read<FocusTimerLengthCubit>(),
+    context.read<LongBreakTimerLengthCubit>(),
+    context.read<ShortBreakTimerLengthCubit>(),
   );
 
   @override
@@ -38,7 +44,7 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
   Widget build(BuildContext context) {
     final timerPlayButtonCubit = context.watch<TimerPlayButtonCubit>();
     final themeCubit = context.watch<ThemeCubit>();
-    var format = NumberFormat("00");
+    final format = NumberFormat("00");
 
     final style = TextStyle(
       height: .9,
@@ -53,9 +59,6 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
     return BlocBuilder<TimerCubit, Duration>(
       bloc: _timerCubit,
       builder: (context, state) {
-        // if (state <= const Duration(seconds: 0)) {
-        //   return const CircularProgressIndicator();
-        // }
         return Column(
           children: [
             AnimatedDefaultTextStyle(

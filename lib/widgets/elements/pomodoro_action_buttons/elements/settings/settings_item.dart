@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/timer_state_cubit.dart';
 
+import '../../../../../cubits/theme_cubit.dart';
+
 class SettingsItem extends StatelessWidget {
   final String title;
   final Widget setting;
@@ -18,11 +20,14 @@ class SettingsItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timerStateCubit = context.watch<TimerStateCubit>();
+    final themeCubit = context.watch<ThemeCubit>();
     return ListTile(
       leading: Text(
         title,
         style: TextStyle(
-          color: timerStateCubit.state.timerColorLightTheme,
+          color: themeCubit.isLight
+              ? timerStateCubit.state.timerColorLightTheme
+              : Colors.white,
           fontSize: fontSize,
           fontWeight: fontWeight,
         ),
