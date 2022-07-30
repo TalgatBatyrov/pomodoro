@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
+import 'package:pomodoro/cubits/notificaton_cubit.dart';
 import 'package:pomodoro/cubits/timer_play_button_cubit.dart';
 import 'package:pomodoro/cubits/timer_state_cubit.dart';
 
@@ -8,6 +10,7 @@ class TimerCubit extends Cubit<Duration> {
   final TimerStateCubit _timerStateCubit;
   final TimerPlayButtonCubit _timerPlayButtonCubit;
   final AutoResumeTimerCubit _autoResumeTimerCubit;
+  final NotificationCubit _notificationCubit;
 
   late StreamSubscription _timerStateSub;
   late StreamSubscription _timerPlayButtonSub;
@@ -16,6 +19,7 @@ class TimerCubit extends Cubit<Duration> {
     this._timerStateCubit,
     this._timerPlayButtonCubit,
     this._autoResumeTimerCubit,
+    this._notificationCubit,
   ) : super(const Duration(seconds: 25)) {
     _timerStateSub = _timerStateCubit.stream.listen(_onTimerStateChanged);
     _timerPlayButtonSub =
@@ -65,6 +69,11 @@ class TimerCubit extends Cubit<Duration> {
             emit(current);
             final isFinished = current.inSeconds == 0;
             if (isFinished) {
+              if (_notificationCubit.state == NotificationState.enable) {
+                final player = AudioPlayer();
+                const alarmAudioPath = "sound.mp3";
+                player.play(AssetSource(alarmAudioPath));
+              }
               _timerPlayButtonCubit.setPause();
               timer.cancel();
               if (_autoResumeTimerCubit.state == AutoResumeState.enable) {

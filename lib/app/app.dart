@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
+import 'package:pomodoro/cubits/notificaton_cubit.dart';
 import 'package:pomodoro/cubits/theme_cubit.dart';
 import 'package:pomodoro/cubits/timer_sound_cubit.dart';
 import 'package:pomodoro/cubits/timer_state_cubit.dart';
@@ -19,6 +20,7 @@ class App extends StatelessWidget {
           BlocProvider(create: (_) => TimerPlayButtonCubit()),
           BlocProvider(create: (_) => AutoResumeTimerCubit()),
           BlocProvider(create: (_) => TimerSoundCubit()),
+          BlocProvider(create: (_) => NotificationCubit()),
         ],
         child: BlocBuilder<ThemeCubit, ThemeData>(
           builder: (context, state) {
