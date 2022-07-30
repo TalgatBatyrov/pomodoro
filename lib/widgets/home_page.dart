@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                 PomodoroTitle(state: state),
                 const SizedBox(height: 40),
                 PomodoroTimer(state: state),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 PomodoroActionButtons(state: state),
               ],
             ),

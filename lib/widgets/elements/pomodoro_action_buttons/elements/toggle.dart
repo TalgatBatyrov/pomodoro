@@ -1,5 +1,7 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro/cubits/timer_sound_cubit.dart';
 import '../../../../cubits/theme_cubit.dart';
 import '../../../../cubits/timer_play_button_cubit.dart';
 import '../../../../cubits/timer_state_cubit.dart';
@@ -16,8 +18,21 @@ class Toggle extends StatelessWidget {
   Widget build(BuildContext context) {
     final timerPlayButtonCubit = context.read<TimerPlayButtonCubit>();
     final themeCubit = context.watch<ThemeCubit>();
+    final timerSoundCubit = context.watch<TimerSoundCubit>();
+
+    Future<void> toggle() async {
+      final player = AudioPlayer();
+      const alarmAudioPath = "sound.mp3";
+      if (timerPlayButtonCubit.state == TimerPlayButtonState.pause) {
+        await player.play(AssetSource(alarmAudioPath));
+      }
+      timerPlayButtonCubit.toggle();
+    }
+
     return GestureDetector(
-      onTap: timerPlayButtonCubit.toggle,
+      onTap: timerSoundCubit.state == TimerSoundState.enable
+          ? toggle
+          : timerPlayButtonCubit.toggle,
       child: Container(
         width: 130,
         height: 100,

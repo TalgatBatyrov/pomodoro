@@ -60,15 +60,19 @@ class TimerCubit extends Cubit<Duration> {
       _lastTimer = Timer.periodic(
         const Duration(seconds: 1),
         (timer) {
-          final current = state - const Duration(seconds: 1);
-          emit(current);
-          final isFinished = current.inSeconds == 0;
-          if (isFinished) {
-            timer.cancel();
-            _timerPlayButtonCubit.setPause();
-            if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
-              _timerStateCubit.nextPage();
+          if (state > const Duration(seconds: 0)) {
+            final current = state - const Duration(seconds: 1);
+            emit(current);
+            final isFinished = current.inSeconds == 0;
+            if (isFinished) {
+              _timerPlayButtonCubit.setPause();
+              timer.cancel();
+              if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
+                _timerStateCubit.nextPage();
+              }
             }
+          } else {
+            _timerPlayButtonCubit.setPause();
           }
         },
       );

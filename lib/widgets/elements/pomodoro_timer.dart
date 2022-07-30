@@ -51,6 +51,9 @@ class _PomodoroTimerState extends State<PomodoroTimer> {
     return BlocBuilder<TimerCubit, Duration>(
       bloc: _timerCubit,
       builder: (context, state) {
+        // if (state <= const Duration(seconds: 0)) {
+        //   return const CircularProgressIndicator();
+        // }
         return Column(
           children: [
             AnimatedDefaultTextStyle(

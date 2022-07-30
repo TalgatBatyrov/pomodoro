@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
 import 'package:pomodoro/cubits/theme_cubit.dart';
+import 'package:pomodoro/cubits/timer_sound_cubit.dart';
 import 'package:pomodoro/widgets/elements/pomodoro_action_buttons/elements/settings/settings_item.dart';
 import '../../../../../cubits/timer_state_cubit.dart';
 
@@ -17,6 +18,7 @@ class SettingsModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeCubit = context.watch<ThemeCubit>();
     final autoResumeTimerCubit = context.watch<AutoResumeTimerCubit>();
+    final timerSoundCubit = context.watch<TimerSoundCubit>();
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -50,6 +52,11 @@ class SettingsModal extends StatelessWidget {
             SettingsItem(
               title: 'Enable dark mode',
               setting: Switch(
+                splashRadius: 0,
+                activeColor: Colors.blueGrey,
+                thumbColor: MaterialStateProperty.resolveWith<Color>((states) {
+                  return const Color.fromARGB(255, 58, 119, 88);
+                }),
                 value: !themeCubit.isLight,
                 onChanged: (_) => themeCubit.toggleTheme(),
               ),
@@ -79,7 +86,10 @@ class SettingsModal extends StatelessWidget {
             ),
             SettingsItem(
               title: 'Sound',
-              setting: Switch(value: true, onChanged: (value) => print(value)),
+              setting: Switch(
+                value: timerSoundCubit.state == TimerSoundState.enable,
+                onChanged: (_) => timerSoundCubit.timerSoundToggle(),
+              ),
             ),
             SettingsItem(
               title: 'Notifications',
