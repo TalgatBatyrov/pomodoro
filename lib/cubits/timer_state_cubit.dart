@@ -53,16 +53,6 @@ extension TimerStateEx on TimerState {
         return const Color.fromRGBO(77, 218, 110, 0.15);
     }
   }
-  // Color? get settingsAndNextPageColorsLight {
-  //   switch (this) {
-  //     case TimerState.focus:
-  //       return const Color.fromRGBO(255, 76, 76, 0.15);
-  //     case TimerState.longBreak:
-  //       return const Color.fromRGBO(76, 172, 255, 0.15);
-  //     case TimerState.shortBreak:
-  //       return const Color.fromRGBO(77, 218, 110, 0.15);
-  //   }
-  // }
 
   String get assetName {
     switch (this) {

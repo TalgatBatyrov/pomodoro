@@ -71,9 +71,19 @@ class TimerCubit extends Cubit<Duration> {
             if (isFinished) {
               if (_notificationCubit.state == NotificationState.enable) {
                 final player = AudioPlayer();
-                const alarmAudioPath = "sound.mp3";
+                const alarmAudioPath = "flutter_meloboom.mp3";
                 player.play(AssetSource(alarmAudioPath));
               }
+              if (_timerStateCubit.state == TimerState.focus) {
+                emit(const Duration(seconds: 25));
+              }
+              if (_timerStateCubit.state == TimerState.longBreak) {
+                emit(const Duration(seconds: 15));
+              }
+              if (_timerStateCubit.state == TimerState.shortBreak) {
+                emit(const Duration(seconds: 5));
+              }
+
               _timerPlayButtonCubit.setPause();
               timer.cancel();
               if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
