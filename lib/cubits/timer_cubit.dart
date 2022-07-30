@@ -37,6 +37,7 @@ class TimerCubit extends Cubit<Duration> {
 
   void _onTimerStateChanged(TimerState event) {
     if (event == TimerState.focus) {
+      _timerPlayButtonCubit.setPause();
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
@@ -44,6 +45,7 @@ class TimerCubit extends Cubit<Duration> {
       return;
     }
     if (event == TimerState.longBreak) {
+      _timerPlayButtonCubit.setPause();
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
@@ -51,6 +53,7 @@ class TimerCubit extends Cubit<Duration> {
       return;
     }
     if (event == TimerState.shortBreak) {
+      _timerPlayButtonCubit.setPause();
       if (_autoResumeTimerCubit.state == AutoResumeState.enable) {
         _timerPlayButtonCubit.setPlay();
       }
@@ -67,6 +70,7 @@ class TimerCubit extends Cubit<Duration> {
           if (state > const Duration(seconds: 0)) {
             final current = state - const Duration(seconds: 1);
             emit(current);
+
             final isFinished = current.inSeconds == 0;
             if (isFinished) {
               if (_notificationCubit.state == NotificationState.enable) {
