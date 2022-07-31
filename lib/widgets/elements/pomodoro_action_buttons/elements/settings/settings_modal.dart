@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
@@ -65,7 +66,9 @@ class SettingsModal extends StatelessWidget {
                     child: const Icon(Icons.exit_to_app))),
             SettingsItem(
               title: tr('settings_enable_dark_mode'),
-              setting: Switch(
+              setting: CupertinoSwitch(
+                activeColor:
+                    !themeCubit.isLight ? state.toggleButtonColor : null,
                 value: !themeCubit.isLight,
                 onChanged: (_) => themeCubit.toggleTheme(),
               ),
@@ -93,7 +96,6 @@ class SettingsModal extends StatelessWidget {
                   value: context.locale,
                   isDense: true,
                   icon: const SizedBox.shrink(),
-                  // iconEnabledColor: Colors.white,
                   underline: const SizedBox.shrink(),
                   onChanged: (locale) {
                     context.setLocale(locale ?? context.locale);
@@ -164,21 +166,31 @@ class SettingsModal extends StatelessWidget {
             ),
             SettingsItem(
               title: tr('settings_auto_resume_timer'),
-              setting: Switch(
+              setting: CupertinoSwitch(
+                activeColor:
+                    autoResumeTimerCubit.state == AutoResumeState.enable
+                        ? state.toggleButtonColor
+                        : null,
                 value: autoResumeTimerCubit.state == AutoResumeState.enable,
                 onChanged: (_) => autoResumeTimerCubit.toggleAutoResume(),
               ),
             ),
             SettingsItem(
               title: tr('settings_sound'),
-              setting: Switch(
+              setting: CupertinoSwitch(
+                activeColor: timerSoundCubit.state == TimerSoundState.enable
+                    ? state.toggleButtonColor
+                    : null,
                 value: timerSoundCubit.state == TimerSoundState.enable,
                 onChanged: (_) => timerSoundCubit.timerSoundToggle(),
               ),
             ),
             SettingsItem(
               title: tr('settings_notofications'),
-              setting: Switch(
+              setting: CupertinoSwitch(
+                activeColor: notificationCubit.state == NotificationState.enable
+                    ? state.toggleButtonColor
+                    : null,
                 value: notificationCubit.state == NotificationState.enable,
                 onChanged: (_) => notificationCubit.toggleNotification(),
               ),
