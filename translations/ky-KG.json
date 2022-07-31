@@ -1,0 +1,14 @@
+{
+    "title_focus": "Көңүл буруу",
+    "title_long_break": "Узак тыныгуу",
+    "title_short_break": "Кыска тыныгуу",
+    "settings": "Орнотуулар",
+    "settings_enable_dark_mode": "Караңгы режимди иштетүү",
+    "settings_pomodoro_length": "Помидордун узундугу",
+    "settings_short_break_length": "Кыска тыныгуу узактыгы",
+    "settings_long_break_length": "Узак тыныгуунун узундугу",
+    "settings_auto_resume_timer": "Авто улантуу таймери",
+    "settings_sound": "Үн",
+    "settings_notofications": "Эскертмелер",
+    "settings_language": "Тил"
+}

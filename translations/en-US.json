@@ -1,0 +1,14 @@
+{
+    "title_focus": "Focus",
+    "title_long_break": "Long break",
+    "title_short_break": "Short break",
+    "settings": "Settings",
+    "settings_enable_dark_mode": "Enable dark mode",
+    "settings_pomodoro_length": "Pomodoro length",
+    "settings_short_break_length": "Short break length",
+    "settings_long_break_length": "Long break length",
+    "settings_auto_resume_timer": "Auto resume timer",
+    "settings_sound": "Sound",
+    "settings_notofications": "Notifications",
+    "settings_language": "Language"
+}

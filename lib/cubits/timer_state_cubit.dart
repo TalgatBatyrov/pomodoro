@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -68,11 +69,11 @@ extension TimerStateEx on TimerState {
   String get title {
     switch (this) {
       case TimerState.focus:
-        return 'Fosuc';
+        return tr('title_focus');
       case TimerState.longBreak:
-        return 'Long break';
+        return tr('title_long_break');
       case TimerState.shortBreak:
-        return 'Short break';
+        return tr('title_short_break');
     }
   }
 

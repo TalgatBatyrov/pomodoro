@@ -1,0 +1,14 @@
+{
+    "title_focus": "Средоточие",
+    "title_long_break": "Долгий перерыв",
+    "title_short_break": "короткий перерыв",
+    "settings": "Настройки",
+    "settings_enable_dark_mode": "Включить темный режим",
+    "settings_pomodoro_length": "Длина помидора",
+    "settings_short_break_length": "Длина короткого перерыва",
+    "settings_long_break_length": "Длина долгого перерыва",
+    "settings_auto_resume_timer": "Автопродолжение",
+    "settings_sound": "Звук",
+    "settings_notofications": "Уведомления",
+    "settings_language": "Язык"
+}

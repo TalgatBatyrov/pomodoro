@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro/cubits/auto_resume_timer_cubit.dart';
@@ -21,6 +22,7 @@ class SettingsModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeCubit = context.watch<ThemeCubit>();
+    final timerStateCubit = context.watch<TimerStateCubit>();
     final autoResumeTimerCubit = context.watch<AutoResumeTimerCubit>();
     final timerSoundCubit = context.watch<TimerSoundCubit>();
     final notificationCubit = context.watch<NotificationCubit>();
@@ -55,21 +57,21 @@ class SettingsModal extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             SettingsItem(
-                title: 'Settings',
+                title: tr('settings'),
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 setting: GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: const Icon(Icons.exit_to_app))),
             SettingsItem(
-              title: 'Enable dark mode',
+              title: tr('settings_enable_dark_mode'),
               setting: Switch(
                 value: !themeCubit.isLight,
                 onChanged: (_) => themeCubit.toggleTheme(),
               ),
             ),
             SettingsItem(
-              title: 'Pomodoro length',
+              title: tr('settings_pomodoro_length'),
               setting: DropdownButton<int>(
                 value: focuctimerLengthCubit.state,
                 items: countries.map((country) {
@@ -85,25 +87,47 @@ class SettingsModal extends StatelessWidget {
                 },
               ),
             ),
-            // SettingsItem(
-            //   title: 'Pomodoros until long break length',
-            //   setting: DropdownButton<int>(
-            //     value: val,
-            //     items: countries.map((country) {
-            //       return DropdownMenuItem<int>(
-            //         value: country,
-            //         child: Text('$country'),
-            //       );
-            //     }).toList(),
-            //     onChanged: (value) {
-            //       if (value != null) {
-            //         val = value;
-            //       }
-            //     },
-            //   ),
-            // ),
             SettingsItem(
-              title: 'Short break length length',
+              title: tr('settings_language'),
+              setting: DropdownButton<Locale>(
+                  value: context.locale,
+                  isDense: true,
+                  icon: const SizedBox.shrink(),
+                  // iconEnabledColor: Colors.white,
+                  underline: const SizedBox.shrink(),
+                  onChanged: (locale) {
+                    context.setLocale(locale ?? context.locale);
+                  },
+                  items: const [
+                    DropdownMenuItem(
+                      value: Locale('en', 'US'),
+                      child: Text('EN'),
+                    ),
+                    DropdownMenuItem(
+                      value: Locale('ky', 'KG'),
+                      child: Text('KG'),
+                    ),
+                    DropdownMenuItem(
+                      value: Locale('ru', 'RU'),
+                      child: Text('RU'),
+                    ),
+                  ],
+                  selectedItemBuilder: (context) {
+                    final style = TextStyle(
+                      color: themeCubit.isLight
+                          ? timerStateCubit.state.timerColorLightTheme
+                          : Colors.white,
+                    );
+
+                    return [
+                      Text('EN', style: style),
+                      Text('KG', style: style),
+                      Text('RU', style: style),
+                    ];
+                  }),
+            ),
+            SettingsItem(
+              title: tr('settings_short_break_length'),
               setting: DropdownButton<int>(
                 value: shortBreakTimerLengthCubit.state,
                 items: countries.map((country) {
@@ -121,7 +145,7 @@ class SettingsModal extends StatelessWidget {
               ),
             ),
             SettingsItem(
-              title: 'Long break length',
+              title: tr('settings_long_break_length'),
               setting: DropdownButton<int>(
                 value: longBreakTimerLengthCubit.state,
                 items: countries.map((country) {
@@ -139,21 +163,21 @@ class SettingsModal extends StatelessWidget {
               ),
             ),
             SettingsItem(
-              title: 'Auto resume timer',
+              title: tr('settings_auto_resume_timer'),
               setting: Switch(
                 value: autoResumeTimerCubit.state == AutoResumeState.enable,
                 onChanged: (_) => autoResumeTimerCubit.toggleAutoResume(),
               ),
             ),
             SettingsItem(
-              title: 'Sound',
+              title: tr('settings_sound'),
               setting: Switch(
                 value: timerSoundCubit.state == TimerSoundState.enable,
                 onChanged: (_) => timerSoundCubit.timerSoundToggle(),
               ),
             ),
             SettingsItem(
-              title: 'Notifications',
+              title: tr('settings_notofications'),
               setting: Switch(
                 value: notificationCubit.state == NotificationState.enable,
                 onChanged: (_) => notificationCubit.toggleNotification(),

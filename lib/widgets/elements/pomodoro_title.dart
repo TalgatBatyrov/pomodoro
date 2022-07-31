@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,9 +14,10 @@ class PomodoroTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.locale;
     final themeCubit = context.watch<ThemeCubit>();
     return Container(
-      width: 200,
+      width: 270,
       height: 60,
       decoration: BoxDecoration(
           border: Border.fromBorderSide(
