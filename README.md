@@ -12,8 +12,8 @@
     <img width="15%" src="https://user-images.githubusercontent.com/90198155/182013735-e3eca75d-9092-4662-8b8d-c18cc5a4add8.jpg"/>
     <span>< ></span>
     <img width="15%" src="https://user-images.githubusercontent.com/90198155/182013737-4fb62336-3a69-45d7-8a14-f4f7942524a9.jpg"/>
-  </div>
-    <span>< ></span>
+ 
+    
     <img width="15%" src="https://user-images.githubusercontent.com/90198155/182013739-2a1be9f2-e0cc-4dd5-94a6-a777bc5ea644.jpg"/>
   </div>
 </div>
