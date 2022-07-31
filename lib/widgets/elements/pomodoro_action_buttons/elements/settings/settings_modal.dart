@@ -62,8 +62,12 @@ class SettingsModal extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 setting: GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: const Icon(Icons.exit_to_app))),
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
+                    Icons.exit_to_app,
+                    size: 40,
+                  ),
+                )),
             SettingsItem(
               title: tr('settings_enable_dark_mode'),
               setting: CupertinoSwitch(

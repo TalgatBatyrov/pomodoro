@@ -13,7 +13,7 @@ class SettingsItem extends StatelessWidget {
     Key? key,
     required this.title,
     required this.setting,
-    this.fontSize = 16,
+    this.fontSize = 18,
     this.fontWeight = FontWeight.w500,
   }) : super(key: key);
 
