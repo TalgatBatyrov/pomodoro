@@ -45,19 +45,19 @@ class TimerCubit extends Cubit<Duration> {
         .listen(_onShortBreakTimerLengthChanged);
   }
 
-  void _onShortBreakTimerLengthChanged(event) {
+  void _onShortBreakTimerLengthChanged(_) {
     if (_timerStateCubit.state == TimerState.shortBreak) {
       emit(Duration(minutes: _shortBreakTimerLengthCubit.state));
     }
   }
 
-  void _onLongBreakTimerLengthChanged(event) {
+  void _onLongBreakTimerLengthChanged(_) {
     if (_timerStateCubit.state == TimerState.longBreak) {
       emit(Duration(minutes: _longBreakTimerLengthCubit.state));
     }
   }
 
-  void _onFocusTimerLengthChanged(event) {
+  void _onFocusTimerLengthChanged(_) {
     if (_timerStateCubit.state == TimerState.focus) {
       emit(Duration(minutes: _focusTimerLengthCubit.state));
     }

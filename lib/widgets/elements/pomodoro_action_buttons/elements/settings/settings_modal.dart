@@ -33,7 +33,7 @@ class SettingsModal extends StatelessWidget {
     final shortBreakTimerLengthCubit =
         context.watch<ShortBreakTimerLengthCubit>();
 
-    List<int> countries = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
+    List<int> minutes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60];
 
     return Container(
       clipBehavior: Clip.hardEdge,
@@ -81,10 +81,10 @@ class SettingsModal extends StatelessWidget {
               title: tr('settings_pomodoro_length'),
               setting: DropdownButton<int>(
                 value: focuctimerLengthCubit.state,
-                items: countries.map((country) {
+                items: minutes.map((minute) {
                   return DropdownMenuItem<int>(
-                    value: country,
-                    child: Text('$country'),
+                    value: minute,
+                    child: Text('$minute'),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -136,10 +136,10 @@ class SettingsModal extends StatelessWidget {
               title: tr('settings_short_break_length'),
               setting: DropdownButton<int>(
                 value: shortBreakTimerLengthCubit.state,
-                items: countries.map((country) {
+                items: minutes.map((minute) {
                   return DropdownMenuItem<int>(
-                    value: country,
-                    child: Text('$country'),
+                    value: minute,
+                    child: Text('$minute'),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -154,10 +154,10 @@ class SettingsModal extends StatelessWidget {
               title: tr('settings_long_break_length'),
               setting: DropdownButton<int>(
                 value: longBreakTimerLengthCubit.state,
-                items: countries.map((country) {
+                items: minutes.map((minute) {
                   return DropdownMenuItem<int>(
-                    value: country,
-                    child: Text('$country'),
+                    value: minute,
+                    child: Text('$minute'),
                   );
                 }).toList(),
                 onChanged: (value) {
